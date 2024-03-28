@@ -22,7 +22,7 @@ class Destinations_ListAPI(generics.ListCreateAPIView):
             serializer = self.get_serializer(data=request.data)
             serializer.is_valid(raise_exception=True)
             serializer.save()
-            return Response({"Success":"Record created suceefully"}, status=status.HTTP_201_CREATED)
+            return Response({"Success":"Your destination created suceefully"}, status=status.HTTP_201_CREATED)
         except Not_Valid_Exception as e:
             return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
         except Exception as e:

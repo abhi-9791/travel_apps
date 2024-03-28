@@ -1,5 +1,8 @@
 from rest_framework.throttling import UserRateThrottle
 
+"""
+        restrictions unneccesary accesing
+"""
 class Check_unneccessary_accesing(UserRateThrottle):
     scope = 'users'
     def get_cache_key(self, request, view):
