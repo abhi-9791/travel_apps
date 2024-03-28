@@ -26,7 +26,7 @@ class Destinations_ListAPI(generics.ListCreateAPIView):
         except Not_Valid_Exception as e:
             return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
         except Exception as e:
-            return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            return Response({'error': str(e)}, status=status.HTTP_400_BAD_REQUEST)
     
     
 class Destinations_CrudAPI(generics.RetrieveUpdateDestroyAPIView):
@@ -69,7 +69,7 @@ class Get_Token(APIView):
                 token, created = Token.objects.get_or_create(user=user)
                 return Response({'token': token.key})
             if user==None or User.DoesNotExist:
-                return Response({'Error': 'provide valid credentials'})
+                return Response({'Error': 'provide valid credentials or not existing user'})
         except Exception as exe:
             return Response({'error': str(exe)}, status=400)
 
