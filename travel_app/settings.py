@@ -135,8 +135,8 @@ REST_FRAMEWORK = {
         
     ),
     'DEFAULT_THROTTLE_RATES': {
-        'user': '500/day',
-        'ip_based': '300/day', 
+        'users': '500/day',
+        'ip_based': '500/day', 
     }
     
     # 'EXCEPTION_HANDLER': 'destinations.exceptions.Handling_exceptions',

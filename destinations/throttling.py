@@ -1,7 +1,7 @@
 from rest_framework.throttling import UserRateThrottle
 
 class Check_unneccessary_accesing(UserRateThrottle):
-    scope = 'user'
+    scope = 'users'
     def get_cache_key(self, request, view):
         if request.user.is_authenticated:
             ident = request.user.username
