@@ -43,7 +43,7 @@ class Destinations_Unit_Test(TestCase):
         
 """ ###################  Integration test cases ############################"""
 
-class DestinationAPITest(APITestCase):
+class DestinationAPI_Integration(APITestCase):
     def setUp(self):
         self.user = User.objects.create_user(username='abhishek', password='1234@Abhi',email='abcd@gmai.com')
         # self.client.login(username='abhishek', password='1234@Abhi')
@@ -129,7 +129,15 @@ class DestinationAPITest(APITestCase):
         self.assertEqual(response_detail.status_code, status.HTTP_401_UNAUTHORIZED)
 
     def test_invalid_destination_id(self):
-    
         url = reverse('travel:destination-crud', args=[222])
         response = self.client.get(url)
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+    def test_invalid_create_data(self):
+        url = reverse('tarvel:destination-list')
+        invalid_data = {
+            'name': 'rambo',  
+            'country': 'New York',
+            
+        }
+        response = self.client.post(url, invalid_data)
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
