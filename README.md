@@ -82,3 +82,5 @@ You can see that code in `requests.ipynb`
 i am providing all requests and responses
 
 ## i did not do the partial updation
+
+## i provided Postman collection also

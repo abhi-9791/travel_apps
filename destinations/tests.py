@@ -133,7 +133,7 @@ class DestinationAPI_Integration(APITestCase):
         response = self.client.get(url)
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
     def test_invalid_create_data(self):
-        url = reverse('tarvel:destination-list')
+        url = reverse('travel:destination-list')
         invalid_data = {
             'name': 'rambo',  
             'country': 'New York',
