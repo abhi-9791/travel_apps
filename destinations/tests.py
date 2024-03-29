@@ -48,8 +48,8 @@ class DestinationAPITest(APITestCase):
         self.user = User.objects.create_user(username='abhishek', password='1234@Abhi',email='abcd@gmai.com')
         # self.client.login(username='abhishek', password='1234@Abhi')
         self.token = Token.objects.create(user=self.user)
-        print(self.user)
-        print(self.token.key)
+        # print(self.user)
+        # print(self.token.key)
         self.client.credentials(HTTP_AUTHORIZATION=f'Token {self.token.key}')
         self.destination1 = Destination.objects.create(
             name ='abhishek 1',
@@ -117,3 +117,19 @@ class DestinationAPITest(APITestCase):
 
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
         self.assertEqual(Destination.objects.count(), 1)
+    def test_unauthenticated_access(self):
+        self.client.logout()
+        url_list = reverse('travel:destination-list')
+        url_detail = reverse('travel:destination-crud', args=[self.destination1.id])
+
+        response_list = self.client.get(url_list)
+        response_detail = self.client.get(url_detail)
+
+        self.assertEqual(response_list.status_code, status.HTTP_401_UNAUTHORIZED)
+        self.assertEqual(response_detail.status_code, status.HTTP_401_UNAUTHORIZED)
+
+    def test_invalid_destination_id(self):
+    
+        url = reverse('travel:destination-crud', args=[222])
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
