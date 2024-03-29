@@ -68,16 +68,16 @@ class Get_Token(APIView):
             if user:
                 token, created = Token.objects.get_or_create(user=user)
                 return Response({'token': token.key})
-            if user==None or User.DoesNotExist:
-                return Response({'Error': 'provide valid credentials or not existing user'})
+            if user == None or User.DoesNotExist:
+                return Response({'Error': 'provide valid credentials or not existing user'},status=status.HTTP_400_BAD_REQUEST)
         except Exception as exe:
             return Response({'error': str(exe)}, status=400)
 
 class SignUp_View(APIView):
     def post(self,request):
-        username=request.data.get('username')
-        email=request.data.get('email')
-        password=request.data.get('password')
+        username = request.data.get('username')
+        email = request.data.get('email')
+        password = request.data.get('password')
         
         try:
             if not (username and email and password):
@@ -86,6 +86,6 @@ class SignUp_View(APIView):
                 return Response({'error': 'Username already exists please check once with your old credentials'}, status=status.HTTP_400_BAD_REQUEST)
             user = User.objects.create_user(username=username, email=email, password=password)
             if user:
-                return Response({"Success": "You can get token with your ctredentials"},status=status.HTTP_201_CREATED)
+                return Response({"Success": "Now You can get token with your ctredentials"},status=status.HTTP_201_CREATED)
         except Exception as exe:
             return Response({"Exception":str(exe)})
